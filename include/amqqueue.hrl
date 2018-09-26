@@ -92,8 +92,8 @@
          (?is_amqqueue_v1(Q0) andalso ?is_amqqueue_v1(Q1) andalso
           ?amqqueue_v1_field_pid(Q0) =:= ?amqqueue_v1_field_pid(Q1)))).
 
--define(amqqueue_vhost_not_equals(Q, VHost),
+-define(amqqueue_vhost_equals(Q, VHost),
         ((?is_amqqueue_v2(Q) andalso
-         ?amqqueue_v2_vhost(Q) =/= VHost) orelse
+         ?amqqueue_v2_vhost(Q) =:= VHost) orelse
         (?is_amqqueue_v1(Q) andalso
-         ?amqqueue_v1_vhost(Q) =/= VHost))).
+         ?amqqueue_v1_vhost(Q) =:= VHost))).
