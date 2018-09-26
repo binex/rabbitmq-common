@@ -16,6 +16,8 @@
 
 -module(amqqueue_v1).
 
+-include("rabbit_resource.hrl").
+
 -export([new/8,
          field_vhost/0,
          % arguments
@@ -73,14 +75,6 @@
          macros/0]).
 
 -define(record_version, ?MODULE).
-
--record(resource, {
-    virtual_host,
-    %% exchange, queue, ...
-    kind,
-    %% name as a binary
-    name
-}).
 
 % TODO #160169569 what about dialyzer types?
 

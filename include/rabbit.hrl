@@ -11,10 +11,11 @@
 %% The Original Code is RabbitMQ.
 %%
 %% The Initial Developer of the Original Code is Pivotal Software, Inc.
-%% Copyright (c) 2007-2017 Pivotal Software, Inc.  All rights reserved.
+%% Copyright (c) 2007-2018 Pivotal Software, Inc.  All rights reserved.
 %%
 
 -include("amqqueue.hrl").
+-include("rabbit_resource.hrl").
 
 %% Passed around most places
 -record(user, {username,
@@ -112,14 +113,6 @@
          protocol, %% The protocol under which properties_bin was encoded
          payload_fragments_rev %% list of binaries, in reverse order (!)
          }).
-
--record(resource, {
-    virtual_host,
-    %% exchange, queue, ...
-    kind,
-    %% name as a binary
-    name
-}).
 
 %% fields described as 'transient' here are cleared when writing to
 %% rabbit_durable_<thing>

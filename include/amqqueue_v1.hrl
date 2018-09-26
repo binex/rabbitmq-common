@@ -19,13 +19,6 @@
 -define(amqqueue_v1_field_vhost(Q), element(18, Q)).
 -define(amqqueue_v1_field_options(Q), element(19, Q)).
 
-% Note: from rabbit.hrl
-% -record(resource, {
-%     virtual_host,
-%     %% exchange, queue, ...
-%     kind,
-%     %% name as a binary
-%     name
-% }).
+% Note: see rabbit_resource.hrl
 
 -define(amqqueue_v1_vhost(Q), element(2, ?amqqueue_v1_field_name(Q))).
