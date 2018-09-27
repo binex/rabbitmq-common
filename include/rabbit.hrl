@@ -15,7 +15,7 @@
 %%
 
 -include("amqqueue.hrl").
--include("rabbit_resource.hrl").
+-include("resource.hrl").
 
 %% Passed around most places
 -record(user, {username,

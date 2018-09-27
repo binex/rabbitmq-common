@@ -16,7 +16,7 @@
 
 -module(amqqueue_v1).
 
--include("rabbit_resource.hrl").
+-include("resource.hrl").
 
 -export([new/8,
          field_vhost/0,
