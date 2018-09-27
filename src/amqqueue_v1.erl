@@ -22,6 +22,7 @@
          field_vhost/0,
          % arguments
          get_arguments/1,
+         set_arguments/2,
          % decorators
          get_decorators/1,
          set_decorators/2,
@@ -124,6 +125,9 @@ is_amqqueue(_)           -> false.
 % arguments
 
 get_arguments(#amqqueue{arguments = Args}) -> Args.
+
+set_arguments(Queue, Args) ->
+    Queue#amqqueue{arguments = Args}.
 
 % decorators
 

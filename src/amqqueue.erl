@@ -22,6 +22,7 @@
          field_vhost/0,
          % arguments
          get_arguments/1,
+         set_arguments/2,
          % decorators
          get_decorators/1,
          set_decorators/2,
@@ -136,8 +137,15 @@ quorum_queue_ff_enabled() ->
 
 % arguments
 
-get_arguments(#amqqueue{arguments = Args}) -> Args;
-get_arguments(Queue)                       -> amqqueue_v1:get_arguments(Queue).
+get_arguments(#amqqueue{arguments = Args}) ->
+    Args;
+get_arguments(Queue) ->
+    amqqueue_v1:get_arguments(Queue).
+
+set_arguments(Queue, Args) ->
+    Queue#amqqueue{arguments = Args};
+set_arguments(Queue, Args) ->
+    amqqueue_v1:set_arguments(Queue, Args).
 
 % decorators
 
