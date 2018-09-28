@@ -142,7 +142,7 @@ get_arguments(#amqqueue{arguments = Args}) ->
 get_arguments(Queue) ->
     amqqueue_v1:get_arguments(Queue).
 
-set_arguments(Queue, Args) ->
+set_arguments(#amqqueue{} = Queue, Args) ->
     Queue#amqqueue{arguments = Args};
 set_arguments(Queue, Args) ->
     amqqueue_v1:set_arguments(Queue, Args).

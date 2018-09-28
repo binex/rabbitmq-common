@@ -126,7 +126,7 @@ is_amqqueue(_)           -> false.
 
 get_arguments(#amqqueue{arguments = Args}) -> Args.
 
-set_arguments(Queue, Args) ->
+set_arguments(#amqqueue{} = Queue, Args) ->
     Queue#amqqueue{arguments = Args}.
 
 % decorators
