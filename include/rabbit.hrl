@@ -142,7 +142,7 @@
           state,                       %% durable (have we crashed?)
           policy_version,
           slave_pids_pending_shutdown,
-          vhost :: rabbit_types:vhost(),                       %% secondary index
+          vhost :: rabbit_types:vhost(), %% secondary index
           options = #{},
           type = classic,
           created_at,                  %% immutable
