@@ -79,6 +79,7 @@ new_amqqueue_v1_is_amqqueue(_) ->
     ?assert(?is_amqqueue_v1(Queue)),
     ?assert(not ?is_amqqueue_v2(Queue)),
     ?assert(?amqqueue_is_classic(Queue)),
+    ?assert(amqqueue:is_classic(Queue)),
     ?assert(not ?amqqueue_is_quorum(Queue)),
     ?assert(not ?amqqueue_vhost_equals(Queue, <<"frazzle">>)),
     ?assert(?amqqueue_has_valid_pid(Queue)),
@@ -103,6 +104,7 @@ new_amqqueue_v2_is_amqqueue(_) ->
     ?assert(?is_amqqueue_v2(Queue)),
     ?assert(not ?is_amqqueue_v1(Queue)),
     ?assert(?amqqueue_is_classic(Queue)),
+    ?assert(amqqueue:is_classic(Queue)),
     ?assert(not ?amqqueue_is_quorum(Queue)),
     ?assert(not ?amqqueue_vhost_equals(Queue, <<"frazzle">>)),
     ?assert(?amqqueue_has_valid_pid(Queue)),
@@ -220,6 +222,7 @@ amqqueue_v1_type_matching(_) ->
                             VHost,
                             undefined),
     ?assert(?amqqueue_is_classic(Queue)),
+    ?assert(amqqueue:is_classic(Queue)),
     ?assert(not ?amqqueue_is_quorum(Queue)).
 
 amqqueue_v2_type_matching(_) ->
@@ -235,7 +238,9 @@ amqqueue_v2_type_matching(_) ->
                                 undefined,
                                 classic),
     ?assert(?amqqueue_is_classic(ClassicQueue)),
+    ?assert(amqqueue:is_classic(ClassicQueue)),
     ?assert(not ?amqqueue_is_quorum(ClassicQueue)),
+    ?assert(not amqqueue:is_quorum(ClassicQueue)),
     QuorumQueue = amqqueue:new(Name,
                                self(),
                                true,
@@ -246,9 +251,13 @@ amqqueue_v2_type_matching(_) ->
                                undefined,
                                quorum),
     ?assert(not ?amqqueue_is_classic(QuorumQueue)),
-    ?assert(?amqqueue_is_quorum(QuorumQueue)).
+    ?assert(not amqqueue:is_classic(QuorumQueue)),
+    ?assert(?amqqueue_is_quorum(QuorumQueue)),
+    ?assert(amqqueue:is_quorum(QuorumQueue)).
 
 random_term_type_matching(_) ->
     Term = ?long_tuple,
     ?assert(not ?amqqueue_is_classic(Term)),
-    ?assert(not ?amqqueue_is_quorum(Term)).
+    ?assert(not ?amqqueue_is_quorum(Term)),
+    ?assertException(error, function_clause, amqqueue:is_classic(Term)),
+    ?assertException(error, function_clause, amqqueue:is_quorum(Term)).
