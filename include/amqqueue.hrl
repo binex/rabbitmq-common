@@ -52,11 +52,6 @@
           ?amqqueue_v1_field_state(Q) =:= State))).
 
 -define(amqqueue_v1_type, classic).
--define(amqqueue_type_is(Q, Type),
-        ((?is_amqqueue_v2(Q) andalso
-          ?amqqueue_v2_field_type(Q) =:= Type) orelse
-         (?is_amqqueue_v1(Q) andalso
-          ?amqqueue_v1_type =:= Type))).
 
 -define(amqqueue_is_classic(Q),
         ((?is_amqqueue_v2(Q) andalso

@@ -74,6 +74,7 @@
          is_amqqueue/1,
          is_auto_delete/1,
          is_durable/1,
+         is_quorum/1,
          pattern_match_all/0,
          pattern_match_on_name/1,
          reset_mirroring_and_decorators/1,
@@ -312,6 +313,7 @@ set_sync_slave_pids(Queue, Pids) ->
     amqqueue_v1:set_sync_slave_pids(Queue, Pids).
 
 %% New in v2.
+
 get_type(#amqqueue{type = Type}) -> Type;
 get_type(_)                      -> ?amqqueue_v1_type.
 
@@ -325,6 +327,9 @@ is_auto_delete(Queue) ->
 
 is_durable(#amqqueue{durable = Durable}) -> Durable;
 is_durable(Queue)                        -> amqqueue_v1:is_durable(Queue).
+
+is_quorum(Queue) ->
+    get_type(Queue) =:= quorum.
 
 field_vhost() ->
     case quorum_queue_ff_enabled() of

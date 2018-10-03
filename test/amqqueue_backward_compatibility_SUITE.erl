@@ -218,8 +218,7 @@ amqqueue_v1_type_matching(_) ->
                             VHost,
                             undefined),
     ?assert(?amqqueue_is_classic(Queue)),
-    ?assert(?amqqueue_type_is(Queue, classic)),
-    ?assert(not ?amqqueue_type_is(Queue, quorum)).
+    ?assert(not ?amqqueue_is_quorum(Queue)).
 
 amqqueue_v2_type_matching(_) ->
     VHost = <<"/">>,
@@ -235,7 +234,6 @@ amqqueue_v2_type_matching(_) ->
                                 classic),
     ?assert(?amqqueue_is_classic(ClassicQueue)),
     ?assert(not ?amqqueue_is_quorum(ClassicQueue)),
-    ?assert(?amqqueue_type_is(ClassicQueue, classic)),
     QuorumQueue = amqqueue:new(Name,
                                self(),
                                true,
@@ -246,10 +244,9 @@ amqqueue_v2_type_matching(_) ->
                                undefined,
                                quorum),
     ?assert(not ?amqqueue_is_classic(QuorumQueue)),
-    ?assert(?amqqueue_is_quorum(QuorumQueue)),
-    ?assert(?amqqueue_type_is(QuorumQueue, quorum)).
+    ?assert(?amqqueue_is_quorum(QuorumQueue)).
 
 random_term_type_matching(_) ->
     Term = ?long_tuple,
-    ?assert(not ?amqqueue_type_is(Term, classic)),
-    ?assert(not ?amqqueue_type_is(Term, quorum)).
+    ?assert(not ?amqqueue_is_classic(Term)),
+    ?assert(not ?amqqueue_is_quorum(Term)).
