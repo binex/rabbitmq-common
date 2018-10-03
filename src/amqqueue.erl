@@ -79,6 +79,8 @@
          pattern_match_on_name/1,
          reset_mirroring_and_decorators/1,
          set_immutable/1,
+         qnode/1,
+         runs_on_node/2,
          macros/0]).
 
 -define(record_version, amqqueue_v2).
@@ -368,6 +370,18 @@ set_immutable(#amqqueue{} = Queue) ->
                    state              = none};
 set_immutable(Queue) ->
     amqqueue_v1:set_immutable(Queue).
+
+runs_on_node(Queue, Node) when ?amqqueue_is_quorum(Queue) ->
+    QPid = amqqueue:get_pid(Queue),
+    qnode(QPid) =:= Node;
+runs_on_node(Queue, Node) when ?amqqueue_is_classic(Queue) ->
+    QPid = amqqueue:get_pid(Queue),
+    node(QPid) =:= Node.
+
+qnode(QPid) when is_pid(QPid) ->
+    node(QPid);
+qnode({_, Node}) ->
+    Node.
 
 macros() ->
     io:format(

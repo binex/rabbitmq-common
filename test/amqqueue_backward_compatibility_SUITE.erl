@@ -84,7 +84,8 @@ new_amqqueue_v1_is_amqqueue(_) ->
     ?assert(?amqqueue_has_valid_pid(Queue)),
     ?assert(?amqqueue_pid_equals(Queue, self())),
     ?assert(?amqqueue_pids_are_equal(Queue, Queue)),
-    ?assert(?amqqueue_pid_runs_on_local_node(Queue)).
+    ?assert(?amqqueue_pid_runs_on_local_node(Queue)),
+    ?assert(amqqueue:runs_on_node(Queue, node())).
 
 new_amqqueue_v2_is_amqqueue(_) ->
     VHost = <<"/">>,
@@ -107,7 +108,8 @@ new_amqqueue_v2_is_amqqueue(_) ->
     ?assert(?amqqueue_has_valid_pid(Queue)),
     ?assert(?amqqueue_pid_equals(Queue, self())),
     ?assert(?amqqueue_pids_are_equal(Queue, Queue)),
-    ?assert(?amqqueue_pid_runs_on_local_node(Queue)).
+    ?assert(?amqqueue_pid_runs_on_local_node(Queue)),
+    ?assert(amqqueue:runs_on_node(Queue, node())).
 
 random_term_is_not_amqqueue(_) ->
     Term = ?long_tuple,
