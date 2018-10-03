@@ -19,6 +19,6 @@
 -define(amqqueue_v1_field_vhost(Q), element(18, Q)).
 -define(amqqueue_v1_field_options(Q), element(19, Q)).
 
-% Note: see rabbit_resource.hrl
+% Note: see rabbit_common/include/resource.hrl
 
 -define(amqqueue_v1_vhost(Q), element(2, ?amqqueue_v1_field_name(Q))).

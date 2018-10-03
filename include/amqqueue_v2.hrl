@@ -22,6 +22,6 @@
 -define(amqqueue_v2_field_created_at(Q), element(21, Q)).
 -define(amqqueue_v2_field_quorum_nodes(Q), element(22, Q)).
 
-% Note: see rabbit_resource.hrl
+% Note: see rabbit_common/include/resource.hrl
 
 -define(amqqueue_v2_vhost(Q), element(2, ?amqqueue_v2_field_name(Q))).
