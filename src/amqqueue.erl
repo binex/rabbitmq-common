@@ -382,6 +382,9 @@ runs_on_node(Queue, Node) when ?amqqueue_is_classic(Queue) ->
     QPid = amqqueue:get_pid(Queue),
     node(QPid) =:= Node.
 
+qnode(Queue) when ?is_amqqueue(Queue) ->
+    QPid = get_pid(Queue),
+    qnode(QPid);
 qnode(QPid) when is_pid(QPid) ->
     node(QPid);
 qnode({_, Node}) ->
