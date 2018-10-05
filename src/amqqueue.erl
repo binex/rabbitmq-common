@@ -19,6 +19,7 @@
 -include_lib("rabbit_common/include/rabbit.hrl").
 
 -export([new/9,
+         fields/0,
          field_vhost/0,
          % arguments
          get_arguments/1,
@@ -336,6 +337,12 @@ is_classic(Queue) ->
 
 is_quorum(Queue) ->
     get_type(Queue) =:= quorum.
+
+fields() ->
+    case quorum_queue_ff_enabled() of
+        true  -> record_info(fields, amqqueue);
+        false -> amqqueue_v1:fields()
+    end.
 
 field_vhost() ->
     case quorum_queue_ff_enabled() of

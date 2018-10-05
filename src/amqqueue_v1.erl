@@ -19,6 +19,7 @@
 -include("resource.hrl").
 
 -export([new/8,
+         fields/0,
          field_vhost/0,
          % arguments
          get_arguments/1,
@@ -233,6 +234,8 @@ get_vhost(#amqqueue{vhost = VHost}) -> VHost.
 is_auto_delete(#amqqueue{auto_delete = AutoDelete}) -> AutoDelete.
 
 is_durable(#amqqueue{durable = Durable}) -> Durable.
+
+fields() -> record_info(fields, amqqueue).
 
 field_vhost() -> #amqqueue.vhost.
 
