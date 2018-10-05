@@ -32,7 +32,9 @@
          % gm_pids
          get_gm_pids/1,
          set_gm_pids/2,
+         % name
          get_name/1,
+         set_name/2,
          % operator_policy
          get_operator_policy/1,
          set_operator_policy/2,
@@ -49,11 +51,6 @@
          % recoverable_slaves
          get_recoverable_slaves/1,
          set_recoverable_slaves/2,
-         % name.virtual_host
-         get_resource_vhost/1,
-         % name.name
-         get_resource_name/1,
-         set_resource_name/2,
          % slave_pids
          get_slave_pids/1,
          set_slave_pids/2,
@@ -146,7 +143,12 @@ get_gm_pids(#amqqueue{gm_pids = GMPids}) -> GMPids.
 set_gm_pids(#amqqueue{} = Queue, GMPids) ->
     Queue#amqqueue{gm_pids = GMPids}.
 
+% name
+
 get_name(#amqqueue{name = Name}) -> Name.
+
+set_name(#amqqueue{} = Queue, Name) ->
+    Queue#amqqueue{name = Name}.
 
 % operator_policy
 
@@ -178,19 +180,6 @@ get_policy_version(#amqqueue{policy_version = PV}) ->
 
 set_policy_version(#amqqueue{} = Queue, PV) ->
     Queue#amqqueue{policy_version = PV}.
-
-% name.virtual_host
-
-get_resource_vhost(#amqqueue{name = #resource{virtual_host = VHost}}) ->
-    VHost.
-
-% name.name
-
-get_resource_name(#amqqueue{name = #resource{name = Name}}) ->
-    Name.
-
-set_resource_name(#amqqueue{name = Res = #resource{}} = Queue, Name) ->
-    Queue#amqqueue{name = Res#resource{name = Name}}.
 
 % recoverable_slaves
 

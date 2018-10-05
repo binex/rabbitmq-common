@@ -33,7 +33,9 @@
          get_gm_pids/1,
          set_gm_pids/2,
          get_leader/1,
+         % name (#resource)
          get_name/1,
+         set_name/2,
          % operator_policy
          get_operator_policy/1,
          set_operator_policy/2,
@@ -53,11 +55,6 @@
          % recoverable_slaves
          get_recoverable_slaves/1,
          set_recoverable_slaves/2,
-         % name.virtual_host
-         get_resource_vhost/1,
-         % name.name
-         get_resource_name/1,
-         set_resource_name/2,
          % slave_pids
          get_slave_pids/1,
          set_slave_pids/2,
@@ -191,8 +188,15 @@ set_operator_policy(#amqqueue{} = Queue, Policy) ->
 set_operator_policy(Queue, Policy) ->
     amqqueue_v1:set_operator_policy(Queue, Policy).
 
+% name
+
 get_name(#amqqueue{name = Name}) -> Name;
 get_name(Queue)                  -> amqqueue_v1:get_name(Queue).
+
+set_name(#amqqueue{} = Queue, Name) ->
+    Queue#amqqueue{name = Name};
+set_name(Queue, Name) ->
+    amqqueue_v1:set_name(Queue, Name).
 
 get_options(#amqqueue{options = Options}) -> Options;
 get_options(Queue)                        -> amqqueue_v1:get_options(Queue).
@@ -228,25 +232,6 @@ set_policy_version(#amqqueue{} = Queue, PV) ->
     Queue#amqqueue{policy_version = PV};
 set_policy_version(Queue, PV) ->
     amqqueue_v1:set_policy_version(Queue, PV).
-
-% name.virtual_host
-
-get_resource_vhost(#amqqueue{name = #resource{virtual_host = VHost}}) ->
-    VHost;
-get_resource_vhost(Queue) ->
-    amqqueue_v1:get_resource_vhost(Queue).
-
-% name.name
-
-get_resource_name(#amqqueue{name = #resource{name = Name}}) ->
-    Name;
-get_resource_name(Queue) ->
-    amqqueue_v1:get_resource_name(Queue).
-
-set_resource_name(#amqqueue{name = Res = #resource{}} = Queue, Name) ->
-    Queue#amqqueue{name = Res#resource{name = Name}};
-set_resource_name(Queue, Name) ->
-    amqqueue_v1:set_resource_name(Queue, Name).
 
 % recoverable_slaves
 
